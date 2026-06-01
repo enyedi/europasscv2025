@@ -1,0 +1,13 @@
+\ProvidesFile{ecv_darkviolet.def}[2026-05-20 europasscv2025 Dark violet color scheme]
+%
+\definecolor{ecv@color@accent}{HTML}{5E3873}
+\definecolor{ecv@color@text}{HTML}{3E434B}
+\definecolor{ecv@color@border}{HTML}{FFFFFF}
+\definecolor{ecv@color@title}{HTML}{FFFFFF}
+\definecolor{ecv@color@info}{HTML}{FFFFFF}
+\definecolor{ecv@color@infolink}{HTML}{FFFFFF}
+\definecolor{ecv@color@section}{HTML}{5E3873}
+\definecolor{ecv@color@highlight}{HTML}{8E56AD}
+\definecolor{ecv@color@link}{HTML}{004494}
+\definecolor{ecv@color@tableitem}{HTML}{FFFFFF}
+\definecolor{ecv@color@tablesep}{HTML}{FFFFFF}

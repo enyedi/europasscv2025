@@ -1,0 +1,68 @@
+%% europasscv2025-bibliography.sty
+%% Bibliography support for the europasscv2025 class.
+%%
+%% USAGE:
+%%   Load this package after \documentclass{europasscv2025}:
+%%
+%%     \usepackage{europasscv2025-bibliography}
+%%     \addbibresource{publications.bib}
+%%
+%%   Then in the document:
+%%
+%%     \ecvpublications[article]{Journal Articles}
+%%     \ecvpublications[inproceedings]{Conference Papers}
+%%     \ecvpublications{All Publications}
+%%
+%% COMMANDS:
+%%   \ecvpublications[type]{section title}
+%%     Renders a section with a filtered bibliography.
+%%     type is optional: article, inproceedings, book, etc.
+%%     If omitted, all entries are printed.
+%%
+%%   \nocite{key1, key2, ...}
+%%     Include specific entries without citing them in text.
+%%
+%%   \nocite{*}
+%%     Include all entries from the .bib file.
+%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{europasscv2025-bibliography}[2026-05-20 Bibliography support for europasscv2025]
+
+% ============================================================
+% DEPENDENCIES
+% ============================================================
+\RequirePackage[
+    backend=biber,
+    style=numeric,
+    sorting=ydnt,       % sort by year descending, name, title
+    defernumbers=true,  % continuous numbering across multiple \printbibliography
+]{biblatex}
+
+% ============================================================
+% BIBLIOGRAPHY STYLE TWEAKS
+% ============================================================
+% Remove the default "References" heading since we use \ecvsection
+\defbibheading{none}{}
+
+% Reduce spacing between entries to match CV style
+\setlength{\bibitemsep}{4pt}
+\setlength{\bibhang}{0pt}
+
+% ============================================================
+% COMMANDS
+% ============================================================
+% \ecvpublications[type]{title}
+%   type — optional biblatex entry type filter:
+%          article, inproceedings, book, thesis, misc, etc.
+%   title — section title passed to \ecvsection
+%
+\newcommand{\ecvpublications}[2][]{%
+    \nocite{*}%
+    \renewcommand{\section}[2]{\ecvsection{#2}}%
+    \ifx\relax#1\relax%
+        \printbibliography[title=#2]%
+    \else%
+        \printbibliography[type=#1,title=#2]%
+    \fi%
+}

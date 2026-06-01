@@ -1,0 +1,13 @@
+\ProvidesFile{ecv_violet.def}[2026-05-20 europasscv2025 Violet color scheme]
+%
+\definecolor{ecv@color@accent}{HTML}{F7EDFF}
+\definecolor{ecv@color@text}{HTML}{3E434B}
+\definecolor{ecv@color@border}{HTML}{5E3873}
+\definecolor{ecv@color@title}{HTML}{5E3873}
+\definecolor{ecv@color@info}{HTML}{5E3873}
+\definecolor{ecv@color@infolink}{HTML}{004494}
+\definecolor{ecv@color@section}{HTML}{5E3873}
+\definecolor{ecv@color@highlight}{HTML}{8E56AD}
+\definecolor{ecv@color@link}{HTML}{004494}
+\definecolor{ecv@color@tableitem}{HTML}{5E3873}
+\definecolor{ecv@color@tablesep}{HTML}{876B95}

@@ -1,0 +1,13 @@
+\ProvidesFile{ecv_default.def}[2026-05-20 europasscv2025 Default color scheme]
+%
+\definecolor{ecv@color@accent}{HTML}{F5F5F5}
+\definecolor{ecv@color@text}{HTML}{5A5959}
+\definecolor{ecv@color@border}{HTML}{000000}
+\definecolor{ecv@color@title}{HTML}{505050}
+\definecolor{ecv@color@info}{HTML}{000000}
+\definecolor{ecv@color@infolink}{HTML}{005AA0}
+\definecolor{ecv@color@section}{HTML}{000000}
+\definecolor{ecv@color@highlight}{HTML}{505050}
+\definecolor{ecv@color@link}{HTML}{005AA0}
+\definecolor{ecv@color@tableitem}{HTML}{000000}
+\definecolor{ecv@color@tablesep}{HTML}{696969}

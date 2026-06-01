@@ -1,0 +1,297 @@
+%% ============================================================
+%% europasscv2025.cls — Example / Template Document
+%% ============================================================
+%%
+%% USAGE:
+%%   \documentclass[options]{europasscv2025}
+%%
+%% CLASS OPTIONS:
+%%
+%%   LANGUAGE (affects labels like "Date of birth", "Phone", etc.)
+%%     english   — English labels (default)
+%%     italian   — Italian labels
+%%
+%%   COLOR SCHEME (affects accent, section, highlight colors)
+%%     color-default     — Default color scheme
+%%     color-darkblue    — Dark blue
+%%     color-blue        — Blue
+%%     color-darkgreen   — Dark green
+%%     color-green       — Green
+%%     color-darkviolet  — Dark violet
+%%     color-violet      — Violet
+%%
+%%   LAYOUT
+%%     nologo      — Remove the Europass logo from the footer
+%%     nototpages  — Remove the "Page X/Y" counter from the footer
+%%
+%%   Any other option is passed directly to the 'article' base class
+%%   (e.g. 12pt, draft, etc.)
+%%
+%% COLOR OVERRIDES:
+%%   Individual colors can be overridden after \documentclass using
+%%   the following commands (value is a 6-digit HTML hex code):
+%%     \ecvaccentcolor{RRGGBB}     — Main accent color (header background, language table background)
+%%     \ecvtextcolor{RRGGBB}       — Body text color
+%%     \ecvbordercolor{RRGGBB}     — Photo border color
+%%     \ecvtitlecolor{RRGGBB}      — Name color in header
+%%     \ecvinfocolor{RRGGBB}       — Personal info text color
+%%     \ecvinfolinkcolor{RRGGBB}   — Links inside the header
+%%     \ecvsectioncolor{RRGGBB}    — Section title color
+%%     \ecvhighlightcolor{RRGGBB}  — Entry titles and skill highlights
+%%     \ecvlinkcolor{RRGGBB}       — General hyperlink color
+%%     \ecvtableitemcolor{RRGGBB}  — Text color inside language table
+%%     \ecvtablesepcolor{RRGGBB}   — Separator color inside language table
+%%
+%% ============================================================
+
+\documentclass[english, color-default]{europasscv2025}
+
+\begin{document}
+
+%% ============================================================
+%% PROFILE PICTURE (optional)
+%% ============================================================
+%% \ecvphoto{filename}
+%%
+%% Defines the profile picture shown in the header.
+%% Must be called BEFORE the ecvinfo environment.
+%% Accepts any image format supported by graphicx (jpg, png, pdf).
+%% The image is automatically cropped to a circle.
+%% For better result use an image with an aspect ration of 1:1.
+%% To omit the photo, simply remove or comment out this line.
+%%
+% \ecvphoto{photo.jpg}
+
+
+%% ============================================================
+%% PERSONAL INFORMATION (ecvinfo environment)
+%% ============================================================
+%% The ecvinfo environment renders the header with personal info.
+%% Commands inside can be called in any order.
+%% The header height adjusts automatically to fit the content.
+%%
+%% Available commands:
+%%
+%%   \ecvname{full name}
+%%   \ecvdateofbirth{date}
+%%   \ecvgender{gender}
+%%
+%%   \ecvnationality{nationality}
+%%     Can be called multiple times to list multiple nationalities.
+%%
+%%   \ecvaddress[label]{address}
+%%     Optional label defaults to "Home". Can be called multiple
+%%     times for multiple addresses.
+%%     Example: \ecvaddress[Home]{12 Strawberry Hill, Dublin}
+%%              \ecvaddress[Work]{200 Rue de la Loi, Brussels}
+%%
+%%   \ecvphone[label]{number}
+%%     Optional label defaults to "Mobile". Can be called multiple
+%%     times for multiple numbers.
+%%     Example: \ecvphone{(+353) 555 123 555}
+%%              \ecvphone[Home]{(+353) 127 6689}
+%%              \ecvphone[Work]{(+353) 999 888 777}
+%%
+%%   \ecvemail{address}
+%%     Can be called multiple times for multiple email addresses.
+%%
+%%   \ecvwebsite{url}
+%%     Can be called multiple times for multiple websites.
+%%
+%%   \ecvsocial{platform}{url}
+%%     Can be called multiple times for different social networks.
+%%     Example: \ecvsocial{GitHub}{www.github.com/smith}
+%%              \ecvsocial{LinkedIn}{www.linkedin.com/in/smith}
+%%
+%%   \ecvim{platform}{username}
+%%     Instant messaging / chat handles.
+%%     Example: \ecvim{Whatsapp}{katie.smith}
+%%              \ecvim{Telegram}{ksmith}
+%%
+\begin{ecvinfo}
+    \ecvname{Katie Smith}
+    \ecvgender{Female}
+    \ecvdateofbirth{1 March 1975}
+    \ecvnationality{Irish}
+
+    \ecvaddress[Home]{12 Strawberry Hill, Dublin 8 Éire/Ireland}
+
+    \ecvphone{(+353) 555 123 555}
+    \ecvphone[Home]{(+353) 127 6689}
+    \ecvphone[Work]{(+353) 999 888 777}
+
+    \ecvemail{smith@kotmail.com}
+    \ecvemail{another@email.com}
+
+    \ecvwebsite{www.myhomepage.com}
+    \ecvwebsite{www.another-homepage.com}
+
+    \ecvsocial{GitHub}{www.github.com/smith}
+    \ecvsocial{LinkedIn}{www.linkedin.com/in/katie-smith}
+
+    \ecvim{Whatsapp}{katie.smith}
+    \ecvim{Telegram}{ksmith}
+\end{ecvinfo}
+
+
+%% ============================================================
+%% SECTIONS
+%% ============================================================
+%% \ecvsection{title}
+%%
+%% Renders a section title with a full-width decorative rule.
+%% Use it to separate the main content areas of the CV.
+%%
+\ecvsection{Education and training}
+
+%% ============================================================
+%% ENTRIES
+%% ============================================================
+%% \ecventry[*]{key=value, ...}
+%%
+%% Renders a single CV entry (job, degree, course, etc.).
+%% Available keys:
+%%   title        — Entry title (bold, highlighted). Required.
+%%   organization — Organization, company, or institution name.
+%%   location     — City and/or country.
+%%   date         — Date or date range (e.g. "2020--2023").
+%%   description  — Free-form text below the title line.
+%%   link         — Optional URL shown below the description.
+%%
+%% TWO VARIANTS:
+%%   \ecventry{...}  — Work experience style: date and location are
+%%                     displayed smaller and in body text color.
+%%   \ecventry*{...} — Education style: date and location are displayed
+%%                     at the same size and color as the title.
+%%
+\ecventry*{
+    title={PhD --- ``Young People in the Construction of the Virtual University''},
+    organization={Trinity College Dublin, The University of Dublin},
+    location={Ireland},
+    date={1997--2001}
+}
+\ecventry*{
+    title={Bachelor of Science in Sociology and Psychology},
+    organization={Trinity College Dublin, The University of Dublin},
+    location={Ireland},
+    date={1993--1997},
+    description={
+        Sociology of risk \newline
+        Sociology of scientific knowledge / information society \newline
+        Anthropology \newline
+        E-learning and Psychology \newline
+        Research methods
+    }
+}
+
+\ecvsection{Work experience}
+
+\ecventry{
+    title={Independent Consultant},
+    organization={National Youth Council of Ireland},
+    location={3 Montague Street, Dublin 2, D02 V327, Ireland},
+    date={August 2002 -- Present},
+    description={Evaluation of European Commission youth training support
+        measures for youth national agencies and young people.}
+}
+\ecventry{
+    title={Internship},
+    organization={European Commission, Youth Unit},
+    location={DG Education and Culture, 200 Rue de la Loi, 1049 Brussels, Belgium},
+    date={March 2002 -- July 2002},
+    description={
+        \textbf{Sector:} European institution. \newline
+        Evaluating youth training programmes and the partnership between
+        the Council of Europe and the European Commission. \newline
+        Organizing and running a 2-day workshop on non-formal education
+        for Action 5 large-scale projects. \newline
+        Contributing to the steering group on training and developing
+        action plans for the next 3 years.
+    }
+}
+\ecventry{
+    title={Researcher / Independent Consultant},
+    organization={Council of Europe},
+    location={Budapest, Hungary},
+    date={Oct 2001 -- Feb 2002},
+    description={In-depth qualitative evaluation of the 2-year Advanced
+        Training of Trainers in Europe, using participant observations,
+        in-depth interviews and focus groups.}
+}
+
+
+%% ============================================================
+%% LANGUAGE SKILLS (ecvlanguages environment)
+%% ============================================================
+%% Renders a language skills table following the CEFR framework.
+%%
+%% \ecvmothertongue{language}
+%%   Defines the mother tongue(s). Can be called multiple times.
+%%
+%% \ecvlanguage{name}{listening}{reading}{production}{interaction}{writing}
+%%   Adds a row to the language table. Each skill level should be
+%%   a CEFR level (A1, A2, B1, B2, C1, C2) or any other string.
+%%   Can be called multiple times for multiple languages.
+%%
+%% \ecvcefrlevels
+%%   Optional. Adds a note at the bottom of the table explaining
+%%   the CEFR levels (A1/A2 = Basic, B1/B2 = Independent,
+%%   C1/C2 = Proficient).
+%%
+\ecvsection{Language skills}
+\begin{ecvlanguages}
+    \ecvmothertongue{English}
+    \ecvlanguage{French}{C1}{C2}{B2}{C1}{C2}
+    \ecvlanguage{German}{A2}{A2}{A2}{A2}{A2}
+    \ecvcefrlevels
+\end{ecvlanguages}
+
+
+%% ============================================================
+%% PERSONAL SKILLS (ecvskills environment)
+%% ============================================================
+%% Renders a skill group with an optional title.
+%%
+%% \begin{ecvskills}[optional title]
+%%   \ecvskill{skill name}
+%%   ...
+%% \end{ecvskills}
+%%
+%% Skills are displayed on a single line separated by ' | '.
+%% The optional title is displayed in bold before the skill list.
+%% Multiple ecvskills environments can follow each other under
+%% the same \ecvsection.
+%%
+\ecvsection{Skills}
+
+\begin{ecvskills}[Communication skills]
+    \ecvskill{Team work}
+    \ecvskill{Mediating skills}
+    \ecvskill{Intercultural skills}
+\end{ecvskills}
+
+\begin{ecvskills}[Computer skills]
+    \ecvskill{Microsoft Office}
+    \ecvskill{HTML}
+\end{ecvskills}
+
+
+%% ============================================================
+%% DRIVING LICENCES (ecvdrivinglicences environment)
+%% ============================================================
+%% Renders a list of driving licence categories.
+%%
+%% \begin{ecvdrivinglicences}
+%%   \ecvdrivinglicence{category}
+%%   ...
+%% \end{ecvdrivinglicences}
+%%
+%% Each \ecvdrivinglicence call adds one category (A, B, C, etc.).
+%%
+\ecvsection{Driving Licence}
+\begin{ecvdrivinglicences}
+    \ecvdrivinglicence{A}
+    \ecvdrivinglicence{B}
+\end{ecvdrivinglicences}
+
+\end{document}
