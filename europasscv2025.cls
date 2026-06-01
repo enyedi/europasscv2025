@@ -162,7 +162,7 @@
         \ifecv@nologo\else%
             % Europass logo
             \raisebox{-0.20\height}{%
-                \includegraphics[height=4mm]{europass_logo.png}%
+                \includegraphics[height=4mm]{europass_logo.pdf}%
             }%
             \hspace{0.5em}%
             \fi%
