@@ -235,53 +235,53 @@
 \newcommand{\ecvdateofbirth}[1]{\renewcommand{\ecv@info@dob}{#1}}%
 \newcommand{\ecvgender}[1]{\renewcommand{\ecv@info@gender}{#1}}%
 \newcommand{\ecvnationality}[1]{%
-    \ifx\ecv@info@nationalitylist\empty%
+    \ifdefempty{\ecv@info@nationalitylist}{%
         \renewcommand{\ecv@info@nationalitylist}{#1}%
-    \else%
+    }{%
         \gappto{\ecv@info@nationalitylist}{,\ #1}%
-    \fi%
+    }%
 }%
 \newcommand{\ecvaddress}[2][\ecv@label@home]{%
-    \ifx\ecv@info@addresslist\empty%
+    \ifdefempty{\ecv@info@addresslist}{%
         \renewcommand{\ecv@info@addresslist}{#2\ (#1)}%
-    \else%
+    }{%
         \gappto{\ecv@info@addresslist}{,\ #2\ (#1)}%
-    \fi%
+    }%
 }%
 \newcommand{\ecvphone}[2][\ecv@label@mobile]{%
-    \ifx\ecv@info@phonelist\empty%
+    \ifdefempty{\ecv@info@phonelist}{%
         \renewcommand{\ecv@info@phonelist}{#2\ (#1)}%
-    \else%
+    }{%
         \gappto{\ecv@info@phonelist}{,\ #2\ (#1)}%
-    \fi%
+    }%
 }%
 \newcommand{\ecvemail}[1]{%
-    \ifx\ecv@info@emaillist\empty%
+    \ifdefempty{\ecv@info@emaillist}{%
         \renewcommand{\ecv@info@emaillist}{\ecv@url[ecv@color@infolink]{#1}}%
-    \else%
+    }{%
         \gappto{\ecv@info@emaillist}{,\ \ecv@url[ecv@color@infolink]{#1}}%
-    \fi%
+    }%
 }%
 \newcommand{\ecvwebsite}[1]{%
-    \ifx\ecv@info@websitelist\empty%
+    \ifdefempty{\ecv@info@websitelist}{%
         \renewcommand{\ecv@info@websitelist}{\ecv@url[ecv@color@infolink]{#1}}%
-    \else%
+    }{%
         \gappto{\ecv@info@websitelist}{,\ \ecv@url[ecv@color@infolink]{#1}}%
-    \fi%
+    }%
 }%
 \newcommand{\ecvsocial}[2]{%
-    \ifx\ecv@info@sociallist\empty%
+    \ifdefempty{\ecv@info@sociallist}{%
         \renewcommand{\ecv@info@sociallist}{#1:~\ecv@url[ecv@color@infolink]{#2}}%
-    \else%
+    }{%
         \gappto{\ecv@info@sociallist}{\ #1:~\ecv@url[ecv@color@infolink]{#2}}%
-    \fi%
+    }%
 }%
 \newcommand{\ecvim}[2]{%
-    \ifx\ecv@info@imlist\empty%
+    \ifdefempty{\ecv@info@imlist}{%
         \renewcommand{\ecv@info@imlist}{#1:~#2}%
-    \else%
+    }{%
         \gappto{\ecv@info@imlist}{\ #1:~#2}%
-    \fi%
+    }%
 }%
 
 % ------------------------------------------------------------
@@ -289,47 +289,47 @@
 % ------------------------------------------------------------
 \newcommand{\ecv@personalinfolist}{}
 \newcommand{\ecv@personalinfolist@append}[1]{%
-    \ifx\ecv@personalinfolist\empty%
+    \ifdefempty{\ecv@personalinfolist}{%
         \renewcommand{\ecv@personalinfolist}{#1}%
-    \else%
+    }{%
         \gappto{\ecv@personalinfolist}{\ecv@sep#1}%
-    \fi%
+    }%
 }
 \newcommand{\ecv@makepersonalinfolist}{%
     % Create list of personal info displayed in the header
     %
     % Date of birth
-    \ifx\ecv@info@dob\empty\else%
+    \ifdefempty{\ecv@info@dob}{}{%
         \ecv@personalinfolist@append{\ecv@label@dob:~\ecv@info@dob}%
-    \fi%
+    }%
     % Gender
-    \ifx\ecv@info@gender\empty\else%
+    \ifdefempty{\ecv@info@gender}{}{%
         \ecv@personalinfolist@append{\ecv@label@gender:~\ecv@info@gender}%
-    \fi%
+    }%
     % Nationalities
-    \ifx\ecv@info@nationalitylist\empty\else%
+    \ifdefempty{\ecv@info@nationalitylist}{}{%
         \ecv@personalinfolist@append{\ecv@label@nationality:~\ecv@info@nationalitylist}%
-    \fi%
+    }%
     % Phone numbers
-    \ifx\ecv@info@phonelist\empty\else%
+    \ifdefempty{\ecv@info@phonelist}{}{%
         \ecv@personalinfolist@append{\ecv@label@phone:~\ecv@info@phonelist}%
-    \fi%
+    }%
     % Email address
-    \ifx\ecv@info@emaillist\empty\else%
+    \ifdefempty{\ecv@info@emaillist}{}{%
         \ecv@personalinfolist@append{\ecv@label@email:~\ecv@info@emaillist}%
-    \fi%
+    }%
     % Personal Websites
-    \ifx\ecv@info@websitelist\empty\else%
+    \ifdefempty{\ecv@info@websitelist}{}{%
         \ecv@personalinfolist@append{\ecv@label@website:~\ecv@info@websitelist}%
-    \fi%
+    }%
     % Social media
-    \ifx\ecv@info@sociallist\empty\else%
+    \ifdefempty{\ecv@info@sociallist}{}{%
         \ecv@personalinfolist@append{\ecv@info@sociallist}%
-    \fi%
+    }%
     % Address
-    \ifx\ecv@info@addresslist\empty\else%
+    \ifdefempty{\ecv@info@addresslist}{}{%
         \ecv@personalinfolist@append{\ecv@label@address:~\ecv@info@addresslist}%
-    \fi%
+    }%
 }
 
 % ------------------------------------------------------------
@@ -337,12 +337,12 @@
 % -----------------------------------------------------------
 \newcommand{\ecv@personalinfo@content}{%
     % Name
-    \ifx\ecv@info@name\empty\else%
+    \ifdefempty{\ecv@info@name}{}{%
         {%
             \color{ecv@color@title}%
-            \LARGE\textbf{\ecv@info@name}\par\vspace{8pt}
+            \LARGE\textbf{\ecv@info@name}\par\vspace{8pt}%
         }\normalcolor%
-    \fi
+    }%
     {%
         \color{ecv@color@info}%
         \ecv@personalinfolist%
@@ -572,25 +572,25 @@
     {%
         \color{ecv@color@highlight}
         \textbf{\ecv@entry@title}%
-        \ifx\ecv@entry@org\empty\else\ecv@sep\ecv@entry@org\fi%
+        \ifdefempty{\ecv@entry@org}{}{\ecv@sep\ecv@entry@org}%
         \IfBooleanTF{#1}{%
-            \ifx\ecv@entry@date\empty\else\ecv@sep\ecv@entry@date\fi%
-            \ifx\ecv@entry@location\empty\else\ecv@sep\ecv@entry@location\fi%
+            \ifdefempty{\ecv@entry@date}{}{\ecv@sep\ecv@entry@date}%
+            \ifdefempty{\ecv@entry@location}{}{\ecv@sep\ecv@entry@location}%
         }{%
             \normalcolor%
-            \ifx\ecv@entry@date\empty\else\footnotesize\ecv@sep\ecv@entry@date\fi%
-            \ifx\ecv@entry@location\empty\else\footnotesize\ecv@sep\ecv@entry@location\fi%
+            \ifdefempty{\ecv@entry@date}{}{\footnotesize\ecv@sep\ecv@entry@date}%
+            \ifdefempty{\ecv@entry@location}{}{\footnotesize\ecv@sep\ecv@entry@location}%
         }%
         \normalcolor%
     }\par%
-    \ifx\ecv@entry@desc\empty\else%
+    \ifdefempty{\ecv@entry@desc}{}{%
         \vspace{4pt}
-        \ecv@entry@desc\par%
-    \fi%
-    \ifx\ecv@entry@link\empty\else%
+        {\IfBooleanTF{#1}{\footnotesize}{}\ecv@entry@desc}\par%
+    }%
+    \ifdefempty{\ecv@entry@link}{}{%
         \vspace{6pt}%
         \ecv@url{\ecv@entry@link}\par%
-    \fi%
+    }%
     \ignorespaces%
 }
 
@@ -609,11 +609,11 @@
 \setlength{\ecv@langrowsep}{\dimexpr((\baselineskip * \arraystretch) - 2mm)}
 
 \newcommand{\ecvmothertongue}[1]{%
-    \ifx\ecv@mtlist\empty
+    \ifdefempty{\ecv@mtlist}{%
         \renewcommand{\ecv@mtlist}{#1}%
-    \else
+    }{%
         \gappto{\ecv@mtlist}{\ecv@sep#1}%
-    \fi
+    }%
 }
 
 \newcommand{\ecv@languagerow}[6]{%
@@ -627,14 +627,14 @@
 }
 
 \newcommand{\ecvlanguage}[6]{%
-    \ifx\ecv@langrows\empty
+    \ifdefempty{\ecv@langrows}{%
         \renewcommand{\ecv@langrows}{\ecv@languagerow{#1}{#2}{#3}{#4}{#5}{#6}}%
-    \else
+    }{%
         \gappto{\ecv@langrows}{%
             & & & & & \\[-\ecv@langrowsep]%
             \ecv@languagerow{#1}{#2}{#3}{#4}{#5}{#6}%
         }%
-    \fi
+    }%
 }
 
 \newenvironment{ecvlanguages}{%
@@ -685,11 +685,11 @@
 \newcommand{\ecv@skillslist}{}
 
 \newcommand{\ecvskill}[1]{%
-  \ifx\ecv@skillslist\empty
+    \ifdefempty{\ecv@skillslist}{%
         \renewcommand{\ecv@skillslist}{#1}%
-    \else
+    }{%
         \gappto{\ecv@skillslist}{\ecv@sep#1}%
-    \fi
+    }%
 }
 
 \newenvironment{ecvskills}[1][]{%
@@ -698,11 +698,11 @@
     }{%
     \vspace{8pt}%
     \noindent%
-    \ifx\ecv@skillstitle\empty\else%
+    \ifdefempty{\ecv@skillstitle}{}{%
         \textbf{\ecv@skillstitle}%
         \color{ecv@color@highlight}%
         \ecv@sep%
-    \fi%
+    }%
     {%
         \color{ecv@color@highlight}%
         \ecv@skillslist%
@@ -724,11 +724,11 @@
 }
 
 \newcommand{\ecvdrivinglicence}[1]{%
-  \ifx\ecv@licenceslist\empty
+    \ifdefempty{\ecv@licenceslist}{%
         \renewcommand{\ecv@licenceslist}{\ecv@drivinglicenceitem{#1}}%
-    \else
+    }{%
         \gappto{\ecv@licenceslist}{\ecv@drivinglicenceitem{#1}}%
-    \fi
+    }%
 }
 
 \newenvironment{ecvdrivinglicences}[1][]{%

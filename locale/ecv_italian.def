@@ -24,7 +24,7 @@
 \def\ecv@label@email{Indirizzo e-mail}
 \def\ecv@label@website{Sito internet}
 \def\ecv@label@address{Indirizzo}
-\def\ecv@label@home{Casa}
+\def\ecv@label@home{Abitazione}
 \def\ecv@label@mobile{Cellulare}
 \def\ecv@label@mothertongue{Lingua madre}
 \def\ecv@label@understanding{Comprensione}
