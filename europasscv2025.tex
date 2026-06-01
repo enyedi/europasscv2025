@@ -1,0 +1,563 @@
+%% europasscv2025.tex
+%% Documentation for the europasscv2025 LaTeX class
+
+% \documentclass[a4paper, 12pt, nologo, nototpages]{europasscv2025}
+\documentclass[a4paper, 12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{metalogo}
+
+% \geometry{
+%     left=2.5cm,
+%     right=2.5cm
+% }
+
+\hypersetup{
+    colorlinks=true
+}
+
+\newcommand{\bs}{\textbackslash}
+\newcommand{\cmd}[1]{\texttt{\bs #1}}
+\newcommand{\opt}[1]{\texttt{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\newcommand{\pkg}[1]{\textsf{#1}}
+
+\title{
+    Documentation of the \LaTeX\ class\\
+    \Large\textbf{\texttt{europasscv2025.cls}}\\
+    \normalsize Version 2026-05-20
+}
+\author{
+    Lorenzo Calisti\\
+    \href{mailto:l.calisti96@gmail.com}{\texttt{l.calisti96@gmail.com}}
+}
+
+\begin{document}
+\maketitle
+\clearpage
+
+\begin{abstract}
+This document describes how to use \pkg{europasscv2025}, an unofficial \LaTeX\ class for 
+typesetting a curriculum vit\ae following the Europass format as defined by the European
+Commission. In particular, it implements the \emph{classic} template of
+the 2025 version of the Europass CV, as available on the official Europass
+online editor (\url{https://europa.eu/europass}) at the time of writing.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+
+The Europass CV is the standard model for curriculum vit\ae recommended by
+the European Commission, widely used across the European Union and beyond.
+Since its introduction, the Europass CV has gone through several major
+revisions, each bringing significant changes to both content and visual
+layout:
+
+\begin{description}
+    \item[2002] The original \emph{European CV} is launched by the European
+        Commission as a common framework for presenting qualifications and
+        competences.
+    \item[2004] The format is rebranded as \emph{Europass CV} and becomes
+        part of the broader Europass framework, which also includes the
+        Language Passport, Europass Mobility, and Certificate Supplement.
+    \item[2013] A major visual redesign introduces a neater, more compact
+        layout with a new color scheme and typographic style. This is the
+        version implemented by the \pkg{europasscv} package
+        (\url{https://ctan.org/pkg/europasscv}) and its predecessor
+        \pkg{europecv} (\url{https://ctan.org/pkg/europecv}).
+    \item[2020] The European Commission launches a new online Europass
+        platform with an integrated CV editor. The platform introduces
+        multiple CV templates each with a distinct visual identity significantly
+        different from the 2013 layout.
+    \item[2025] The current version of the Europass online editor offers
+        a further refined set of templates. The \emph{classic} template,
+        which this class implements, features a full-width colored header
+        with personal information and photo, clean section separators, and
+        a structured layout for entries.
+\end{description}
+
+Despite the availability of \LaTeX\ implementations for the 2013 layout,
+no package existed at the time of writing that targets the current 2025
+template as found on the Europass website. \pkg{europasscv2025} fills
+this gap by providing a \LaTeX\ implementation of the \emph{classic}
+template of the 2025 Europass CV editor.
+
+This class is inspired by \pkg{europasscv} by Giacomo Mazzamuto
+(\url{https://ctan.org/pkg/europasscv}), which remains the reference
+implementation for the 2013 layout. However, \pkg{europasscv2025} is an
+entirely independent reimplementation: the API is in no way
+backwards-compatible or interchangeable with \pkg{europasscv}. Commands,
+environments, and options are redesigned from scratch to match the new
+template and to provide a cleaner, more expressive interface.
+
+This class is \emph{not} affiliated with or endorsed by the European
+Commission or the Europass initiative. Europass and the Europass logo are
+trademarks of the European Union.
+
+% ============================================================
+\section{Requirements and compilation}
+% ============================================================
+
+\pkg{europasscv2025} requires a reasonably up-to-date \LaTeX\ distribution
+(TeX Live 2022 or later is recommended). It depends on the following
+packages: \pkg{xcolor}, \pkg{graphicx}, \pkg{geometry}, \pkg{fancyhdr},
+\pkg{lastpage}, \pkg{tikz}, \pkg{array}, \pkg{tabularx}, \pkg{booktabs},
+\pkg{colortbl}, \pkg{longtable}, \pkg{microtype}, \pkg{pgfkeys},
+\pkg{ulem}, \pkg{tcolorbox}, \pkg{etoolbox}, \pkg{ragged2e}, and
+\pkg{hyperref}. All of these are included in standard \LaTeX\ distributions.
+
+The class supports pdf\LaTeX, \XeLaTeX, and \LuaLaTeX, and automatically
+adapts the font setup to the detected engine. \XeLaTeX\ or \LuaLaTeX\ are
+recommended for best font rendering and full Unicode support; pdf\LaTeX\
+is supported but may produce slightly different font rendering.
+
+The recommended way to compile the document is via the provided
+\texttt{Makefile}, which handles all compilation steps automatically,
+including running \pkg{biber} when bibliography support is used:
+
+\begin{verbatim}
+make          %% compile the CV
+make clean    %% remove auxiliary files
+make cleanall %% remove auxiliary files and output PDF
+\end{verbatim}
+
+The \texttt{Makefile} uses \texttt{latexmk} internally, which automatically
+detects and reruns the necessary compilation steps (\XeLaTeX, \pkg{biber},
+etc.) until the document is stable. No manual multi-pass compilation is
+needed.
+
+% ============================================================
+\section{Tutorial}
+% ============================================================
+
+This section walks through the main features of \pkg{europasscv2025} with practical examples. 
+
+Let's start with a minimal (empty) CV:
+
+\begin{verbatim}
+    \documentclass{europasscv2025}
+    \begin{document}
+    \end{document}
+\end{verbatim}
+
+You can start adding content by specifying your personal information and then 
+adding sections and entries as described below.
+For a complete reference of all available commands and options, see section~\ref{sec:advanced}.
+
+% ------------------------------------------------------------
+\subsection{Personal information}
+% ------------------------------------------------------------
+
+Personal information is specified inside the \env{ecvinfo} environment,which renders the 
+full-width colored header at the top of the CV.
+Commands inside the environment can be called in any order.
+
+\begin{verbatim}
+\begin{ecvinfo}
+    \ecvname{Katie Smith}
+    \ecvgender{Female}
+    \ecvdateofbirth{1 March 1975}
+    \ecvnationality{Irish}
+    \ecvaddress[Home]{12 Strawberry Hill, Dublin 8, Ireland}
+    \ecvphone{(+353) 555 123 555}
+    \ecvphone[Home]{(+353) 127 6689}
+    \ecvemail{smith@example.com}
+    \ecvwebsite{www.myhomepage.com}
+    \ecvsocial{GitHub}{www.github.com/smith}
+    \ecvsocial{LinkedIn}{www.linkedin.com/in/smith}
+    \ecvim{Whatsapp}{katie.smith}
+\end{ecvinfo}
+\end{verbatim}
+
+Some commands can be called multiple times to build a list of values ---
+for example \cmd{ecvphone}, \cmd{ecvemail}, \cmd{ecvwebsite},
+\cmd{ecvsocial}, \cmd{ecvim}, \cmd{ecvnationality}, and \cmd{ecvaddress}.
+
+% ------------------------------------------------------------
+\subsection{Profile picture}
+% ------------------------------------------------------------
+
+An optional profile picture can be shown in the header. Call \cmd{ecvphoto}
+with the image filename \emph{before} the \env{ecvinfo} environment:
+
+\begin{verbatim}
+\ecvphoto{photo.jpg}
+\begin{ecvinfo}
+    \ecvname{Katie Smith}
+    ...
+\end{ecvinfo}
+\end{verbatim}
+
+The image is automatically cropped to a circle with a colored border.
+Any format supported by \pkg{graphicx} is accepted (jpg, png, pdf).
+To remove the photo, simply omit \cmd{ecvphoto}.
+
+% ------------------------------------------------------------
+\subsection{Sections and entries}
+% ------------------------------------------------------------
+
+Use \cmd{ecvsection} to divide the CV into named sections, and
+\cmd{ecventry} to add individual items inside each section:
+
+\begin{verbatim}
+\ecvsection{Work experience}
+
+\ecventry{
+    title={Software Engineer},
+    organization={Acme Corp},
+    location={Rome, Italy},
+    date={2020--Present},
+    description={Designed and maintained backend services.}
+}
+
+\ecvsection{Education and training}
+
+\ecventry*{
+    title={Master of Science in Computer Science},
+    organization={Sapienza University of Rome},
+    location={Rome, Italy},
+    date={2018--2020}
+}
+\end{verbatim}
+
+Note the two variants of \cmd{ecventry}:
+\begin{description}
+    \item[\cmd{ecventry\{...\}}] Work experience style: date and location
+        are displayed smaller and in body text color.
+    \item[\cmd{ecventry*\{...\}}] Education style: date and location are
+        displayed at the same size and color as the title.
+\end{description}
+
+% ------------------------------------------------------------
+\subsection{Language skills}
+% ------------------------------------------------------------
+
+The language skills table follows the CEFR framework and is rendered
+inside the \env{ecvlanguages} environment:
+
+\begin{verbatim}
+\ecvsection{Language skills}
+\begin{ecvlanguages}
+    \ecvmothertongue{English}
+    \ecvlanguage{French}{C1}{C2}{B2}{C1}{C2}
+    \ecvlanguage{German}{A2}{A2}{A2}{A2}{A2}
+    \ecvcefrlevels
+\end{ecvlanguages}
+\end{verbatim}
+
+\cmd{ecvmothertongue} can be called multiple times for multiple mother
+tongues. \cmd{ecvcefrlevels} is optional and adds an explanatory note
+about the CEFR scale at the bottom of the table.
+
+% ------------------------------------------------------------
+\subsection{Personal skills}
+% ------------------------------------------------------------
+
+Skills are grouped in named blocks using the \env{ecvskills} environment:
+
+\begin{verbatim}
+\ecvsection{Skills}
+
+\begin{ecvskills}[Communication skills]
+    \ecvskill{Team work}
+    \ecvskill{Mediating skills}
+    \ecvskill{Intercultural skills}
+\end{ecvskills}
+
+\begin{ecvskills}[Computer skills]
+    \ecvskill{Python}
+    \ecvskill{LaTeX}
+\end{ecvskills}
+
+%% Group without a title
+\begin{ecvskills}
+    \ecvskill{First aid certificate}
+\end{ecvskills}
+\end{verbatim}
+
+Skills are displayed on a single line separated by \texttt{|}. Multiple
+\env{ecvskills} environments can follow each other under the same section.
+
+% ------------------------------------------------------------
+\subsection{Driving licences}
+% ------------------------------------------------------------
+
+Driving licence categories are listed inside the \env{ecvdrivinglicences}
+environment:
+
+\begin{verbatim}
+\begin{ecvdrivinglicences}
+    \ecvdrivinglicence{A}
+    \ecvdrivinglicence{B}
+\end{ecvdrivinglicences}
+\end{verbatim}
+
+Standard European categories are A, A1, A2, AM, B, B1, BE, C, C1,
+CE, D, D1, DE, T.
+
+% ============================================================
+\section{Advanced usage}
+\label{sec:advanced}
+% ============================================================
+
+% ------------------------------------------------------------
+\subsection{Class options reference}
+\label{sec:options}
+% ------------------------------------------------------------
+
+Options are passed to the class in the usual \LaTeX\ way:
+\begin{verbatim}
+\documentclass[english, color-darkblue, nologo]{europasscv2025}
+\end{verbatim}
+
+\subsubsection{Language options}
+
+The language option affects only the labels appearing in the CV
+(e.g.\ ``Date of birth'', ``Phone'', column headers in the language
+table). It does not affect hyphenation; use \pkg{babel} or
+\pkg{polyglossia} for that.
+
+\begin{description}
+    \item[\opt{english}] English labels (default).
+    \item[\opt{italian}] Italian labels.
+\end{description}
+
+\subsubsection{Color scheme options}
+
+\begin{description}
+    \item[\opt{color-default}] Default gray color scheme (default).
+    \item[\opt{color-darkblue}] Dark blue.
+    \item[\opt{color-blue}] Blue.
+    \item[\opt{color-darkgreen}] Dark green.
+    \item[\opt{color-green}] Green.
+    \item[\opt{color-darkviolet}] Dark violet.
+    \item[\opt{color-violet}] Violet.
+\end{description}
+
+\subsubsection{Layout options}
+
+\begin{description}
+    \item[\opt{nologo}] Remove the Europass logo from the footer.
+    \item[\opt{nototpages}] Remove the ``Page X/Y'' counter from the footer.
+    \item[\opt{debug}] Load \pkg{showframe} and highlight layout boxes
+        for debugging.
+\end{description}
+
+% ------------------------------------------------------------
+\subsection{Command reference}
+\label{sec:commands}
+% ------------------------------------------------------------
+
+\subsubsection{Personal information commands}
+
+The following commands are available inside the \env{ecvinfo} environment:
+
+\begin{description}
+    \item[\cmd{ecvname\{full name\}}] Full name, displayed large and bold.
+    \item[\cmd{ecvdateofbirth\{date\}}] Date of birth.
+    \item[\cmd{ecvgender\{gender\}}] Gender.
+    \item[\cmd{ecvnationality\{nationality\}}] Nationality. Repeatable.
+    \item[\cmd{ecvaddress[label]\{address\}}] Address. The optional label
+        defaults to the localized word for ``Home''. Repeatable.
+    \item[\cmd{ecvphone[label]\{number\}}] Phone number. The optional
+        label defaults to the localized word for ``Mobile''. Repeatable.
+    \item[\cmd{ecvemail\{address\}}] Email address. Repeatable.
+    \item[\cmd{ecvwebsite\{url\}}] Personal website URL. Repeatable.
+    \item[\cmd{ecvsocial\{platform\}\{url\}}] Social media profile.
+        Repeatable.
+    \item[\cmd{ecvim\{platform\}\{username\}}] Instant messaging handle.
+        Repeatable.
+\end{description}
+
+\subsubsection{Section and entry commands}
+
+\begin{description}
+    \item[\cmd{ecvsection\{title\}}] Renders a section heading with a
+        full-width decorative rule.
+    \item[\cmd{ecventry\{key=value, ...\}}] Work experience entry. Date
+        and location are displayed smaller and in body text color.
+    \item[\cmd{ecventry*\{key=value, ...\}}] Education entry. Date and
+        location are displayed at the same size and color as the title.
+\end{description}
+
+Available keys for \cmd{ecventry} and \cmd{ecventry*}:
+
+\begin{description}
+    \item[\texttt{title}] Entry title, bold and highlighted. Required.
+    \item[\texttt{organization}] Organization, company, or institution.
+    \item[\texttt{location}] City and/or country.
+    \item[\texttt{date}] Date or date range (e.g.\ \texttt{2020--2023}).
+    \item[\texttt{description}] Free-form text below the title line.
+        Supports \cmd{newline}, \cmd{textbf}, and other \LaTeX\ commands.
+    \item[\texttt{link}] URL displayed below the description as a
+        clickable underlined link.
+\end{description}
+
+\subsubsection{Language skill commands}
+
+\begin{description}
+    \item[\cmd{ecvmothertongue\{language\}}] Mother tongue. Repeatable.
+    \item[\cmd{ecvlanguage\{name\}\{list.\}\{read.\}\{prod.\}\{int.\}\{writ.\}}]
+        Adds a row to the language table. Each skill argument should be
+        a CEFR level (A1--C2) or any string. Repeatable.
+    \item[\cmd{ecvcefrlevels}] Adds a CEFR explanation note at the
+        bottom of the language table. Optional.
+\end{description}
+
+\subsubsection{Skill commands}
+
+\begin{description}
+    \item[\cmd{ecvskill\{skill\}}] Adds a skill to the current
+        \env{ecvskills} group.
+\end{description}
+
+\subsubsection{Driving licence commands}
+
+\begin{description}
+    \item[\cmd{ecvdrivinglicence\{category\}}] Adds a driving licence
+        category. Repeatable.
+\end{description}
+
+% ------------------------------------------------------------
+\subsection{Color customization}
+\label{sec:colors}
+% ------------------------------------------------------------
+
+Individual colors can be overridden in the preamble after
+\cmd{documentclass}, using the following commands. Each command takes
+a 6-digit HTML hex color code as its argument:
+
+\begin{description}
+    \item[\cmd{ecvaccentcolor\{RRGGBB\}}] Main accent color (header background).
+    \item[\cmd{ecvtextcolor\{RRGGBB\}}] Body text color.
+    \item[\cmd{ecvbordercolor\{RRGGBB\}}] Photo border color.
+    \item[\cmd{ecvtitlecolor\{RRGGBB\}}] Name color in the header.
+    \item[\cmd{ecvinfocolor\{RRGGBB\}}] Personal info text color in the header.
+    \item[\cmd{ecvinfolinkcolor\{RRGGBB\}}] Link color inside the header.
+    \item[\cmd{ecvsectioncolor\{RRGGBB\}}] Section title color.
+    \item[\cmd{ecvhighlightcolor\{RRGGBB\}}] Entry title and skill highlight color.
+    \item[\cmd{ecvlinkcolor\{RRGGBB\}}] General hyperlink color.
+    \item[\cmd{ecvtableitemcolor\{RRGGBB\}}] Text color inside the language table.
+    \item[\cmd{ecvtablesepcolor\{RRGGBB\}}] Separator color in the language table.
+\end{description}
+
+The predefined color schemes are:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{ll}
+    \toprule
+    \textbf{Option} & \textbf{Description} \\
+    \midrule
+    \opt{color-default}     & Gray (default) \\
+    \opt{color-darkblue}    & Dark blue \\
+    \opt{color-blue}        & Blue \\
+    \opt{color-darkgreen}   & Dark green \\
+    \opt{color-green}       & Green \\
+    \opt{color-darkviolet}  & Dark violet \\
+    \opt{color-violet}      & Violet \\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+% ------------------------------------------------------------
+\subsection{Bibliography and publications}
+\label{sec:bib}
+% ------------------------------------------------------------
+
+Bibliography support is provided by the optional package
+\pkg{europasscv2025-bibliography}, which must be loaded separately.
+This keeps \pkg{biblatex} as an optional dependency for users who
+do not need a publications section.
+
+\subsubsection{Setup}
+
+Load the package and specify the \texttt{.bib} resource files in
+the preamble:
+
+\begin{verbatim}
+\documentclass[english]{europasscv2025}
+\usepackage{europasscv2025-bibliography}
+\addbibresource{publications.bib}
+\end{verbatim}
+
+Compilation requires \pkg{biber}, which is automatically detected
+and run by \texttt{latexmk}:
+\begin{verbatim}
+latexmk -xelatex mycv.tex
+\end{verbatim}
+If you get ``undefined citation'' errors, delete the auxiliary files
+(\texttt{.bcf}, \texttt{.bbl}, \texttt{.blg}) and recompile.
+
+\subsubsection{Printing publications with \cmd{ecvpublications}}
+
+The recommended approach uses \cmd{ecvpublications}, which combines
+\cmd{ecvsection} and \cmd{printbibliography} in a single command with
+continuous numbering across all blocks:
+
+\begin{verbatim}
+\ecvpublications[article]{Journal Articles}
+\ecvpublications[inproceedings]{Conference Papers}
+\ecvpublications[thesis]{Thesis}
+\ecvpublications{All Publications}  %% no type filter
+\end{verbatim}
+
+The optional argument filters by \pkg{biblatex} entry type. Common
+types: \texttt{article}, \texttt{inproceedings}, \texttt{book},
+\texttt{thesis}, \texttt{misc}.
+
+\subsubsection{Raw \env{refsection} blocks}
+
+For full control, use a raw \env{refsection} block. Each block has
+its own independent numbering starting from~[1]:
+
+\begin{verbatim}
+\begin{refsection}
+    \nocite{smith_phd}
+    \renewcommand{\section}[2]{\ecvsection{#2}}
+    \printbibliography[title=Thesis]
+\end{refsection}
+\end{verbatim}
+
+Numbering is \emph{not} continuous between \env{refsection} blocks.
+Use \cmd{ecvpublications} if you want continuous numbering.
+
+% ------------------------------------------------------------
+\subsection{Adding new languages}
+\label{sec:locale}
+% ------------------------------------------------------------
+
+To add a new language, create \texttt{locale/ecv\_<lang>.def} and
+add the corresponding \cmd{DeclareOption} in \texttt{europasscv2025.cls}:
+
+\begin{verbatim}
+\DeclareOption{french}{\renewcommand{\ecv@lang}{french}}
+\end{verbatim}
+
+The \texttt{.def} file must define all label commands. Use the existing
+\texttt{locale/ecv\_english.def} as a template. Contributions of new
+language files are welcome.
+
+% ============================================================
+\section{Copyright and license}
+% ============================================================
+
+Europass and the Europass logo are trademarks of the European Union.
+See \url{https://europass.europa.eu} for more information.
+
+The \pkg{europasscv2025} class is released under The \LaTeX\ Project
+Public License version~1.3c.
+See \url{https://www.latex-project.org/lppl/} for the full license text.
+
+\end{document}
