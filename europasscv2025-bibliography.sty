@@ -1,30 +1,43 @@
-%% europasscv2025-bibliography.sty
-%% Bibliography support for the europasscv2025 class.
-%%
-%% USAGE:
-%%   Load this package after \documentclass{europasscv2025}:
-%%
-%%     \usepackage{europasscv2025-bibliography}
-%%     \addbibresource{publications.bib}
-%%
-%%   Then in the document:
-%%
-%%     \ecvpublications[article]{Journal Articles}
-%%     \ecvpublications[inproceedings]{Conference Papers}
-%%     \ecvpublications{All Publications}
-%%
-%% COMMANDS:
-%%   \ecvpublications[type]{section title}
-%%     Renders a section with a filtered bibliography.
-%%     type is optional: article, inproceedings, book, etc.
-%%     If omitted, all entries are printed.
-%%
-%%   \nocite{key1, key2, ...}
-%%     Include specific entries without citing them in text.
-%%
-%%   \nocite{*}
-%%     Include all entries from the .bib file.
-%%
+% europasscv2025-bibliography.sty
+% Bibliography support for the europasscv2025 class.
+%
+% Copyright 2025 Lorenzo Calisti
+%
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3 of this license
+% or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Lorenzo Calisti.
+%
+% USAGE:
+%   Load this package after \documentclass{europasscv2025}:
+%
+%     \usepackage{europasscv2025-bibliography}
+%     \addbibresource{publications.bib}
+%
+%   Then in the document:
+%
+%     \ecvpublications[article]{Journal Articles}
+%     \ecvpublications[inproceedings]{Conference Papers}
+%     \ecvpublications{All Publications}
+%
+% COMMANDS:
+%   \ecvpublications[type]{section title}
+%     Renders a section with a filtered bibliography.
+%     type is optional: article, inproceedings, book, etc.
+%     If omitted, all entries are printed.
+%
+%   \nocite{key1, key2, ...}
+%     Include specific entries without citing them in text.
+%
+%   \nocite{*}
+%     Include all entries from the .bib file.
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{europasscv2025-bibliography}[2026-05-20 Bibliography support for europasscv2025]

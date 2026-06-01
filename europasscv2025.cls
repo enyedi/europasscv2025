@@ -1,8 +1,19 @@
 % europasscv2025.cls
 % An unofficial LaTeX class for the Europass CV (2025 "classic" template)
 %
-% This material is subject to the LaTeX Project Public License Version 1.3.
-% See http://www.latex-project.org/lppl.txt for the details of that license.
+% Copyright 2025 Lorenzo Calisti
+%
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3 of this license
+% or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Lorenzo Calisti.
 %
 % COMPATIBILITY:
 %   This class works with pdfLaTeX, XeLaTeX, and LuaLaTeX.
