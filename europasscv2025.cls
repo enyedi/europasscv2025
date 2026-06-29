@@ -48,6 +48,7 @@
 \newcommand{\ecv@lang}{english}% Default to english
 \DeclareOption{english}{\renewcommand{\ecv@lang}{english}}
 \DeclareOption{italian}{\renewcommand{\ecv@lang}{italian}}
+\DeclareOption{romanian}{\renewcommand{\ecv@lang}{romanian}}
 
 % Color schemes
 \newcommand{\ecv@colorscheme}{default}% Default color scheme
